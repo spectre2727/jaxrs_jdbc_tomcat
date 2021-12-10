@@ -1,37 +1,33 @@
 package jaxrs_tomcat.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
+import java.util.List;
+
+import javax.ws.rs.core.Application;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 
-import jaxrs_tomcat.Main;
+import jaxrs_tomcat.entity.Item;
 
-public class ItemControllerTest {
+public class ItemControllerTest extends JerseyTest {
 	
-	@BeforeClass
-	public static void main() throws Exception {
-		Main.main(new String[1]);
-	}
+	@Override
+    protected Application configure() {
+        return new ResourceConfig(ItemController.class);
+    }
 	
-	@AfterClass
-	public static void stop() throws Exception {
-		Main.stop();
-	}
-
 	@Test
 	public void selectAllItemsTest() {
-		Client client = ClientBuilder.newBuilder().build();
-		Response response = client.target("http://localhost:8080/tom")
-			.path("/items")
-			.request()
-			.get();
-		assertEquals(200, response.getStatus());
+		Response response = target("/items").request().get();
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
+		assertNotNull(response.readEntity(new GenericType<List<Item>>() {}));
 	}
 
 }

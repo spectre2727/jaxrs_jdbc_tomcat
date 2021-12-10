@@ -1,10 +1,13 @@
 package jaxrs_tomcat;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertTrue;
 
-public class MainTest extends TestCase {
+import org.junit.Test;
 
-	public void testApp() {
+public class MainTest {
+
+	@Test
+	public void test() {
 		assertTrue(true);
 	}
 	

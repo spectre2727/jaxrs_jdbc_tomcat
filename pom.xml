@@ -39,6 +39,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.27</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>9.0.55</version>
@@ -53,6 +59,18 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.test-framework</groupId>
+			<artifactId>jersey-test-framework-core</artifactId>
+			<version>2.35</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+			<version>2.35</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
