@@ -13,9 +13,11 @@ import jaxrs_tomcat.configuration.JdbcConnection;
 import jaxrs_tomcat.entity.Item;
 
 public class ItemRepository {	
+	
+	private JdbcConnection jdbcConnection = new JdbcConnection();
 
 	public List<Item> selectAllItems() {
-		try (Connection connection = JdbcConnection.get()) {
+		try (Connection connection = jdbcConnection.get()) {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("select * from items order by value");
 			List<Item> items = new ArrayList<Item>();
@@ -33,7 +35,7 @@ public class ItemRepository {
 	}
 
 	public int insertItem(Item item) {
-		try (Connection connection = JdbcConnection.get()) {
+		try (Connection connection = jdbcConnection.get()) {
 			PreparedStatement preparedStatement = 
 					connection.prepareStatement("insert into items values (?, ?)");
 			preparedStatement.setString(1, UUID.randomUUID().toString().replace("-", "").substring(0, 16));
@@ -47,7 +49,7 @@ public class ItemRepository {
 	}
 
 	public int updateItem(String id, Item item) {
-		try (Connection connection = JdbcConnection.get()) {
+		try (Connection connection = jdbcConnection.get()) {
 			PreparedStatement preparedStatement = 
 					connection.prepareStatement("update items set value = ? where id = ?");
 			preparedStatement.setString(1, item.getValue());
@@ -61,7 +63,7 @@ public class ItemRepository {
 	}
 
 	public int deleteItem(String id) {
-		try (Connection connection = JdbcConnection.get()) {
+		try (Connection connection = jdbcConnection.get()) {
 			PreparedStatement preparedStatement = 
 					connection.prepareStatement("delete from items where id = ?");
 			preparedStatement.setString(1, id);

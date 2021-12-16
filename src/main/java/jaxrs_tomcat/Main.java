@@ -11,8 +11,8 @@ import jaxrs_tomcat.configuration.ResourceConfiguration;
 
 public class Main {
 	
-	private static Tomcat tomcat;
-	private static String contextPath = "/tom";
+	private static Tomcat tomcat = new Tomcat();
+	private static String contextPath = "/cp";
 	private static String docBase = new File(".").getAbsolutePath();
 	private static String pattern = "/*";
 	
@@ -21,7 +21,6 @@ public class Main {
 	}
 	
 	public static void main(String[] args) throws LifecycleException {
-		tomcat = new Tomcat();
 		tomcat.setPort(8080);
 		tomcat.getConnector();
 		Context context = tomcat.addWebapp(contextPath, docBase);
