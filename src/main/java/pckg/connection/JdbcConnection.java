@@ -1,8 +1,7 @@
-package jaxrs_tomcat.configuration;
+package pckg.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class JdbcConnection {
 	
@@ -14,7 +13,7 @@ public class JdbcConnection {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			return DriverManager.getConnection(url, username, password);
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}

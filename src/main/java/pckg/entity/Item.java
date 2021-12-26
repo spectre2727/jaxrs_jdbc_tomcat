@@ -1,4 +1,4 @@
-package jaxrs_tomcat.entity;
+package pckg.entity;
 
 public class Item {
 

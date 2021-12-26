@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,8 +21,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import jaxrs_tomcat.configuration.JdbcConnection;
-import jaxrs_tomcat.entity.Item;
+import pckg.connection.JdbcConnection;
+import pckg.entity.Item;
+import pckg.repository.ItemRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ItemRepositoryTest {
@@ -41,6 +45,7 @@ public class ItemRepositoryTest {
 	
 	@Before
 	public void initRepository() throws SQLException {
+		System.setErr(System.err);
 		connection = DriverManager.getConnection("jdbc:hsqldb:mem:standard", "root", "root");
 		Mockito.when(jdbcConnection.get()).thenReturn(connection);
 	}
@@ -52,9 +57,18 @@ public class ItemRepositoryTest {
 
 	@Test
 	public void dontSelectAllItemsTest() {
+		PrintStream noPrintStream = new PrintStream(new OutputStream() {
+			@Override
+			public void write(int b) throws IOException {
+				
+			}
+		});
+		System.setErr(noPrintStream);
+		
 		BDDMockito.given(jdbcConnection.get()).willAnswer(i -> {
 			throw new SQLException();
 		});
+		
 		assertNull(itemRepository.selectAllItems());
 	}
 	
@@ -66,10 +80,19 @@ public class ItemRepositoryTest {
 	}
 	
 	@Test
-	public void dontInsertItem() {
+	public void dontInsertItemTest() {
+		PrintStream noPrintStream = new PrintStream(new OutputStream() {
+			@Override
+			public void write(int b) throws IOException {
+				
+			}
+		});
+		System.setErr(noPrintStream);
+		
 		BDDMockito.given(jdbcConnection.get()).willAnswer(i -> {
 			throw new SQLException();
 		});
+		
 		assertEquals(0, itemRepository.insertItem(new Item()));
 	}
 

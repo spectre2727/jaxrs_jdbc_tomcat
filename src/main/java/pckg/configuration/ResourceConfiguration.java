@@ -1,11 +1,11 @@
-package jaxrs_tomcat.configuration;
+package pckg.configuration;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
 public class ResourceConfiguration extends ResourceConfig {
 	
 	public ResourceConfiguration() {
-		packages("jaxrs_tomcat");
+		packages("pckg");
 	}
 
 }

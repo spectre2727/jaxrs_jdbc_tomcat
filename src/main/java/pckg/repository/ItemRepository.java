@@ -1,4 +1,4 @@
-package jaxrs_tomcat.repository;
+package pckg.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import jaxrs_tomcat.configuration.JdbcConnection;
-import jaxrs_tomcat.entity.Item;
+import pckg.connection.JdbcConnection;
+import pckg.entity.Item;
 
 public class ItemRepository {	
 	
