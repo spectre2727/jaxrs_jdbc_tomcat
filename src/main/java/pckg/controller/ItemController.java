@@ -2,6 +2,7 @@ package pckg.controller;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +17,7 @@ import pckg.repository.ItemRepository;
 
 @Path("/items")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class ItemController {
 
 	private ItemRepository itemRepository = new ItemRepository();

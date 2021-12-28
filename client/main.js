@@ -4,7 +4,7 @@ window.onload = function() {
 
 function selectAllItems() {
 	var xhttp = new XMLHttpRequest();
-	xhttp.open("GET", "http://localhost:8080/cp/items");
+	xhttp.open("GET", "http://localhost:8080/spec01/items");
 	xhttp.onload = function() {
 		var items = JSON.parse(xhttp.responseText);
 		var rows = "";
@@ -26,7 +26,7 @@ function insertItem() {
 	};
     var itemToInsertJson = JSON.stringify(itemToInsert);
     var xhttp = new XMLHttpRequest();
-    xhttp.open('POST', 'http://localhost:8080/cp/items');
+    xhttp.open('POST', 'http://localhost:8080/spec01/items');
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.onload = function() {
         selectAllItems();
@@ -41,7 +41,7 @@ function updateItem() {
     var itemToUpdateJson = JSON.stringify(itemToUpdate);
     var id = document.getElementById('updateId').value;
     var xhttp = new XMLHttpRequest();
-    xhttp.open('PUT', 'http://localhost:8080/cp/items/' + id);
+    xhttp.open('PUT', 'http://localhost:8080/spec01/items/' + id);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.onload = function() {
         selectAllItems();
@@ -52,7 +52,7 @@ function updateItem() {
 function deleteItem() {
     var id = document.getElementById('deleteId').value;
     var xhttp = new XMLHttpRequest();
-    xhttp.open('DELETE', 'http://localhost:8080/cp/items/' + id);
+    xhttp.open('DELETE', 'http://localhost:8080/spec01/items/' + id);
     xhttp.onload = function() {
         selectAllItems();
     }

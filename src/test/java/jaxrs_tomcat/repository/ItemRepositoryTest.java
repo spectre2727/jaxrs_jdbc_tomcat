@@ -11,21 +11,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import pckg.connection.JdbcConnection;
 import pckg.entity.Item;
 import pckg.repository.ItemRepository;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ItemRepositoryTest {
 
 	private static Connection connection;
@@ -36,14 +36,14 @@ public class ItemRepositoryTest {
 	@InjectMocks
 	private ItemRepository itemRepository;
 
-	@BeforeClass
+	@BeforeAll
 	public static void initConnection() throws SQLException {
 		connection = DriverManager.getConnection("jdbc:hsqldb:mem:standard", "root", "root");
 		connection.createStatement().executeQuery("create table items (id varchar(16), value varchar(50))");
 		connection.createStatement().executeQuery("insert into items values (\'1\', \'value1\')");
 	}
 	
-	@Before
+	@BeforeEach
 	public void initRepository() throws SQLException {
 		System.setErr(System.err);
 		connection = DriverManager.getConnection("jdbc:hsqldb:mem:standard", "root", "root");

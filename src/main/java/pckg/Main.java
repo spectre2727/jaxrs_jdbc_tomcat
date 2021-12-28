@@ -10,21 +10,22 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import pckg.configuration.ResourceConfiguration;
 
 public class Main {
-	
-	private static Tomcat tomcat = new Tomcat();
-	private static String contextPath = "/cp";
-	private static String docBase = new File(".").getAbsolutePath();
-	private static String pattern = "/*";
-	
+		
 	public static void main(String[] args) throws LifecycleException {
+		// Start a new Tomcat
+		Tomcat tomcat = new Tomcat();
 		tomcat.setPort(8080);
 		tomcat.getConnector();
 		
-		Context context = tomcat.addWebapp(contextPath, docBase);
-		ServletContainer servletContainer = new ServletContainer(new ResourceConfiguration());
-		tomcat.addServlet(contextPath, "mainServlet", servletContainer);
-		context.addServletMappingDecoded(pattern, "mainServlet");
+		// Add an unique context for the webapp, and webapp to Tomcat
+		Context context = tomcat.addWebapp("/spec01", new File(".").getAbsolutePath());
 		
+		// Add the servlet to the webapp context defined previously
+		ServletContainer servletContainer = new ServletContainer(new ResourceConfiguration());
+		tomcat.addServlet("/spec01", "mainServlet", servletContainer);
+		context.addServletMappingDecoded("/*", "mainServlet");
+		
+		// Run the server
 		tomcat.start();
 	}
 	
